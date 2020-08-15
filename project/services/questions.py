@@ -14,7 +14,9 @@ questions = [
 
 
 def find_questions(query: str):
-    result = [question for question in questions if fuzz.partial_ratio(query, question.text) > 50]
+    result_with_ratios = [(question, fuzz.partial_ratio(query, question.text)) for question in questions if fuzz.partial_ratio(query, question.text) > 50]
+    sorted_result_with_ratios = sorted(result_with_ratios, key=lambda item: item[1], reverse=True)
+    result = [item[0] for item in sorted_result_with_ratios]  # FIXME
     return result
 
 
