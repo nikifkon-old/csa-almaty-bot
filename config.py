@@ -17,7 +17,7 @@ class Config:
 
     WEBAPP_HOST = "0.0.0.0"
     WEBAPP_PORT = os.getenv("WEBAPP_PORT", 8000)
-    WEBHOOK_PORT = os.getenv("WEBHOOK_PORT", 8001)
+    PORT = os.getenv("PORT", 8001)
 
     # DATABASE_HOST = os.getenv("DATABASE_HOST")
     # DATABASE_PORT = os.getenv("DATABASE_PORT")

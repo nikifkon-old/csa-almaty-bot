@@ -14,8 +14,9 @@ logging.basicConfig(level=logging.INFO)
 async def on_startup(app):
     logging.info(f"Setting up webhook url: {Config.WEBHOOK_URL}")
     await bot.delete_webhook()
-    certificate = InputFile(Config.PUBLIC_KEY)
-    status = await bot.set_webhook(Config.WEBHOOK_URL, certificate=certificate)
+    # certificate = InputFile(Config.PUBLIC_KEY)
+    status = await bot.set_webhook(Config.WEBHOOK_URL)
+    # , certificate=certificate)
     if status:
         logging.info("Webhook setting up successfully!")
     else:
