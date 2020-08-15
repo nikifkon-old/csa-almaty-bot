@@ -1,7 +1,7 @@
 from aiogram import Dispatcher
 
-from .start import bot_start
 from .help import bot_help
+from .start import bot_start
 
 
 def setup(dp: Dispatcher):

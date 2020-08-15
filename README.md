@@ -22,6 +22,7 @@
 ## `get_questions_list_keyboard(category_name)`
 ## `get_search_result_keyboard(query)`
 ## `get_back_to_searh_result_or_categories_keyboard()`
+## `get_question_not_found_keyboard()`
 
 # Script
 

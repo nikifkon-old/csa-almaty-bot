@@ -1,6 +1,6 @@
 from aiogram import types
 
-from project.handlers.menu_keyboard import entry
+from project.handlers.menu import entry
 
 
 async def bot_help(message: types.Message):
