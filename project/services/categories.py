@@ -1,13 +1,7 @@
 from project.models import Category
 from project.utils import EXCLAMATION_CHAR
 
-
-categories_names = [
-    "1. Вопросы по Отделу имущественного найма.",
-    "2. Вопросы по Отделу управлению коммунальными активами.",
-    "3. Вопросы по Отдел доверительного управления и приватизации."
-]
-
+from .data import categories_names
 
 categories = [
     Category(

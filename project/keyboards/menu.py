@@ -1,6 +1,7 @@
 from aiogram import types
-from project.services import list_categories, get_questions_in_category
-from project.utils import BACK_TO_MENU_TEXT
+
+from project.services import get_questions_in_category, list_categories
+from project.utils import BACK_TO_MENU_TEXT, OPEN_SEARCH
 
 
 def get_main_menu_keyboard():
@@ -10,6 +11,8 @@ def get_main_menu_keyboard():
         button = types.KeyboardButton(category.name)
         keyboard.add(button)
 
+    open_search_button = types.KeyboardButton(OPEN_SEARCH)
+    keyboard.add(open_search_button)
     return keyboard
 
 
@@ -28,6 +31,6 @@ def get_keyboard_by_category_text(category_name: str):
         pass  # TODO
     for question in get_questions_in_category(category_name):
         button = types.KeyboardButton(question.text)
-        keyboard.row(button)
+        keyboard.add(button)
 
     return keyboard
