@@ -17,7 +17,7 @@ async def back_to_menu(message: types.Message):
     """
     await Menu.first()
     keyboard = get_main_menu_keyboard()
-    await message.reply("Возврашаю в главное меню", reply_markup=keyboard)
+    await message.reply("Возвращаю в главное меню", reply_markup=keyboard)
 
 
 async def entry(message: types.Message):
