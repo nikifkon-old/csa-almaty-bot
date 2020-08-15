@@ -21,6 +21,8 @@ def get_keyboard_by_category_text_or_404(category_name: str):
 
 def get_keyboard_by_category_text(category_name: str):
     keyboard = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    back_to_menu_button = types.KeyboardButton(BACK_TO_MENU_TEXT)
+    keyboard.add(back_to_menu_button)
     categories = get_questions_in_category(category_name)
     if len(categories) == 0:
         pass  # TODO
@@ -28,6 +30,4 @@ def get_keyboard_by_category_text(category_name: str):
         button = types.KeyboardButton(question.text)
         keyboard.row(button)
 
-    back_to_menu_button = types.KeyboardButton(BACK_TO_MENU_TEXT)
-    keyboard.add(back_to_menu_button)
     return keyboard

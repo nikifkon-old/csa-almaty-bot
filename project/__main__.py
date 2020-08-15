@@ -33,8 +33,8 @@ async def on_shutdown(dp):
 
 if __name__ == '__main__':
     handlers.questions.setup(dp)
-    handlers.menu_keyboard.setup(dp)
     handlers.helpers.setup(dp)
+    handlers.menu_keyboard.setup(dp)
     if Config.USE_POLLING:
         executor.start_polling(dp, skip_updates=True)
     else:

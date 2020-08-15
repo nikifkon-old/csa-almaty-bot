@@ -24,26 +24,53 @@ async def bot_cancel(message: types.Message):
 
 
 async def entry(message: types.Message):
+    await ask_category(message)
+
+
+# wait_for_category
+async def handle_category(message: types.Message, state: FSMContext):
+    keyboard = get_keyboard_by_category_text_or_404(message.text)
+    if keyboard is None:
+        return await invalid_category(message)
+    await state.update_data(category=message.text)
+
+    return await ask_question(message, keyboard=keyboard)
+
+
+async def ask_category(message: types.Message):
     keyboard = get_main_menu_keyboard()
-    await message.answer("Выбирите категорию:", reply_markup=keyboard)
+    await message.answer("Пожалуйста, выберите категорию, используя клавиатуру ниже.", reply_markup=keyboard)
     await Menu.wait_for_category.set()
 
 
-async def choose_category(message: types.Message, state: FSMContext):
-    keyboard = get_keyboard_by_category_text_or_404(message.text)
-    if keyboard is None:
-        await message.reply("Пожалуйста, выберите категорию, используя клавиатуру ниже.")
-        return
-    await state.update_data(category=message.text.lower())
-
-    await Menu.wait_for_question.set()
-    await message.answer("Теперь выберите Вопрос:", reply_markup=keyboard)
+async def invalid_category(message: types.Message):
+    await message.reply("Такой категории не существует", reply_markup=None)
+    return await ask_category(message)
 
 
-async def choose_question(message: types.Message, state: FSMContext):
+# wait_for_question
+async def handle_question(message: types.Message, state: FSMContext):
     question = get_question_or_404(message.text)
     if question is None:
-        await message.reply("Пожалуйста, выберите вопрос, используя клавиатуру ниже.")
-        return
+        return await invalid_question(message, state=state)
     await message.reply(question.answer)
+
+    return await ask_category(message)
+
+
+async def ask_question(message: types.Message, keyboard):
+    await message.answer("Пожалуйста, выберите вопрос, используя клавиатуру ниже.", reply_markup=keyboard)
     await Menu.wait_for_question.set()
+
+
+async def invalid_question(message: types.Message, state: FSMContext):
+    data = await state.get_data()
+    try:
+        category = data["category"]
+    except KeyError:
+        await Menu.wait_for_category.set()
+
+    keyboard = get_keyboard_by_category_text_or_404(category)
+    await message.reply("Такого вопроса не существует", reply_markup=None)
+
+    return await ask_question(message, keyboard=keyboard)
