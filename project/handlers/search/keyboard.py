@@ -40,7 +40,8 @@ async def ask_query(message: types.Message):
     Ask user to type query
     When user click to button with text ~project.utils.TRY_SEARCH_AGAIN or from `entry` point
     """
-    await message.answer("Введите свой запрос:", reply_markup=None)
+    keyboard = types.ReplyKeyboardRemove()
+    await message.answer("Введите свой запрос:", reply_markup=keyboard)
     await Search.wait_for_query.set()
 
 
