@@ -18,4 +18,4 @@ def setup(dp: Dispatcher):
 
     dp.register_message_handler(back_to_search, lambda message: message.text == BACK_TO_SEARCH_RESULT, state=Search.after_get_question)
     # dp.register_message_handler(handle_invalid_after_get_question_option, state=Search.after_get_question)
-    dp.register_message_handler(handle_query, state=Search.all())
+    dp.register_message_handler(handle_query, state=Search.states)
