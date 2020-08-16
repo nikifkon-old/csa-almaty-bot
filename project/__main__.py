@@ -23,6 +23,7 @@ async def on_startup(app):
 async def on_shutdown(dp):
     logging.warning('Shutting down..')
     # await bot.delete_webhook()  DONT DO THIS!  Heroku app will not awake!
+    await bot.set_webhook(Config.HOST)
 
     await dp.storage.close()
     await dp.storage.wait_closed()
