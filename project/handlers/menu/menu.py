@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
+from project.handlers.search import handle_query
 from project.keyboards import get_keyboard_by_category_text_or_404, get_main_menu_keyboard
 from project.services import get_question_or_404
 
@@ -34,7 +35,8 @@ async def handle_category(message: types.Message, state: FSMContext):
     """
     keyboard = get_keyboard_by_category_text_or_404(message.text)
     if keyboard is None:
-        return await invalid_category(message)
+        # return await invalid_category(message)
+        return await handle_query(message, state=state)
     await state.update_data(category=message.text)
 
     return await ask_question(message, keyboard=keyboard)
@@ -51,7 +53,7 @@ async def ask_category(message: types.Message):
 
 async def invalid_category(message: types.Message):
     """
-    When user typed category that does not exist
+    When user typed category that does not exist  (not using now)
     """
     await message.reply("Такой категории не существует", reply_markup=None)
     return await ask_category(message)
@@ -64,7 +66,8 @@ async def handle_question(message: types.Message, state: FSMContext):
     """
     question = get_question_or_404(message.text)
     if question is None:
-        return await invalid_question(message, state=state)
+        # return await invalid_question(message, state=state)
+        return await handle_query(message, state=state)
     await message.reply(question.answer)
 
     return await ask_category(message)
@@ -80,7 +83,7 @@ async def ask_question(message: types.Message, keyboard):
 
 async def invalid_question(message: types.Message, state: FSMContext):
     """
-    When user typed invalid question
+    When user typed invalid question  (not using now)
     """
     data = await state.get_data()
     try:

@@ -87,7 +87,8 @@ async def handle_question(message: types.Message, state: FSMContext):
     """
     question = get_question_or_404(message.text)
     if question is None:
-        return await invalid_question(message, state=state)
+        # return await invalid_question(message, state=state)
+        return await handle_query(message, state=state)
     await message.reply(question.answer)
 
     return await ask_after_get_question(message)
@@ -117,7 +118,7 @@ async def ask_question(message: types.Message, state: FSMContext = None, keyboar
 
 async def invalid_question(message: types.Message, state: FSMContext):
     """
-    When user`s typed question does not exist
+    When user`s typed question does not exist  (not used now)
     """
     await message.reply("Такого вопроса не существует", reply_markup=None)
     return await ask_question(message, state=state)
