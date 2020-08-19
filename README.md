@@ -1,3 +1,10 @@
+# Installation
+
+```
+cp .env.example .env
+python project
+```
+
 # Models
 
 ## Question
